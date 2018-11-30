@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/FibHeap.dir/main.cpp.obj"
+  "CMakeFiles/FibHeap.dir/Tests/test.cpp.obj"
   "FibHeap.pdb"
   "FibHeap.exe"
   "FibHeap.exe.manifest"

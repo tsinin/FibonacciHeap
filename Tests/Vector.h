@@ -82,6 +82,14 @@ public:
         }
         return lastElement;
     }
+    Vector(int start_size): vector_size(start_size), max_size(start_size) {
+        data = new T[max_size];
+    }
+    Vector(int start_size, T key): vector_size(start_size), max_size(start_size) {
+        data = new T[max_size];
+        for(int i = 0; i < vector_size; i++)
+            data[i] = key;
+    }
     Vector() {
         vector_size = 0;
         max_size = 1;

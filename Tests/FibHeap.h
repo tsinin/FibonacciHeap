@@ -14,7 +14,7 @@ public:
     class Pointer;
     struct node {
         node *child, *parent, *next, *prev;
-        std::shared_ptr<Pointer> backPtr;
+        Pointer* backPtr;
         int degree = 0;
         bool mark = false;
         Key data;
@@ -39,12 +39,12 @@ public:
     bool is_empty() const {
         return (size == 0);
     }
-    std::shared_ptr<Pointer> insert(Key x) {
+    Pointer* insert(Key x) {
         node *new_node = new node(x);
-        std::shared_ptr<Pointer> pointer(new Pointer(new_node));
+        Pointer* pointer = new Pointer(new_node);
         new_node->backPtr = pointer;
         if(size == 0) {
-            min = min->next = min->prev = new_node;
+            min->prev = min->next = min = new_node;
         } else {
             new_node->next = min;
             new_node->prev = min->prev;
@@ -56,7 +56,7 @@ public:
         size++;
         return pointer;
     }
-    Key get_min()  {
+    Key get_min() const {
         try {
             if(this->is_empty())
                 throw std::logic_error("Heap is empty.");
@@ -74,15 +74,13 @@ public:
             this->min = otherHeap.min;
             this->size = otherHeap.size;
         } else {
-            node* l = this->min->prev, *r = otherHeap.min->next;
-            otherHeap.min->next = this->min;
-            this->min->prev = otherHeap.min;
-            l->next = r;
-            r->prev = l;
+            union_lists(this->min, otherHeap.min);
             if(otherHeap.min->data < this->min->data)
                 min = otherHeap.min;
-            size += otherHeap.size();
+            size += otherHeap.size;
         }
+        otherHeap.min = nullptr;
+        otherHeap.size = 0;
     }
     Key extract_min() {
         try {
@@ -94,83 +92,156 @@ public:
             exit(1);
         }
         Key ans = min->data;
-
+        if(min->degree > 0)
+            union_lists(min, min->child);
+        node *l = min->prev, *r = min->next;
+        l->next = r;
+        r->prev = l;
+        delete min->backPtr;
+        delete min;
+        min = r;
+        size--;
+        consolidate();
+        return ans;
     }
-    void erase(std::shared_ptr<Pointer> &pointer) {
+    void decrease(Pointer* pointer, Key newKey) {
         try {
-            if(pointer.use_count() == 1)
-                throw std::invalid_argument("Element has been already deleted.");
+            if(newKey > pointer->element->data)
+                throw std::invalid_argument("Element is greater than previous one.");
         }
-        catch(std::invalid_argument& error) {
+        catch(std::logic_error& error) {
             std::cerr << error.what() << std::endl;
             exit(2);
         }
-        pointer->element->smallest = true;
-        decreaseKey(pointer, pointer->element->data);
-        pointer.reset();
-        this->extract_min();
-    }
-    void change(std::shared_ptr<Pointer> &pointer, Key newKey) {
-        try {
-            if(pointer.use_count() == 1)
-                throw std::invalid_argument("Element does not exist.");
+        node* element = pointer->element;
+        if(element->parent == nullptr) {
+            element->data = newKey;
+            if(newKey < min->data)
+                min = element;
+            return;
+        } else if(newKey > element->parent->data) {
+            pointer->element->data = newKey;
+            return;
         }
-        catch(std::invalid_argument& error) {
-            std::cerr << error.what() << std::endl;
-            exit(2);
-        }
-        if(newKey > pointer->element->data) {
-            this->erase(pointer);
-            pointer = insert(newKey);
-        } else {
-            decreaseKey(pointer, newKey);
-        }
+        node* parent = element->parent;
+        cut(element);
+        cascading_cut(parent);
     }
     FibHeap() = default;
-    ~FibHeap() = default;
+    ~FibHeap() {
+        if(size == 0)
+            return;
+        int count = 1;
+        node* temp = min->next;
+        while(temp != min) {
+            temp = temp->next;
+            count++;
+        }
+        for(int i = 0; i < count; ++i) {
+            temp = min->next;
+            destruct(min, 0);
+            min = temp;
+        }
+    };
 private:
+    const int max_degree = 100;
     int size = 0;
     node* min = nullptr;
-
-    node* merge(node* first, node* second) {
-        if(first->data >= second->data) {
-            node* temp = first;
-            first = second;
-            second = temp;
+    void destruct(node* x, int a) {
+        if(x == nullptr)
+            return;
+        node* child = x->child;
+        for(int i = 0; i < x->degree; ++i) {
+            node *temp = child->next;
+            destruct(child, a + 1);
+            child = temp;
         }
-        if(!first->lastChild) {
-            first->lastChild = first->firstChild = second;
-            second->parent = first;
-            second->next = second->prev = nullptr;
-            first->degree++;
-            return first;
-        }
-        first->lastChild->next = second;
-        second->next = nullptr;
-        second->prev = first->lastChild;
-        first->lastChild = first->lastChild->next;
-        second->parent = first;
-        first->degree++;
-        return first;
+        delete x->backPtr;
+        delete x;
     }
-    void swapWithParent(node*& ptr) {
-        Key tempForData = ptr->data;
-        ptr->data = ptr->parent->data;
-        ptr->parent->data = tempForData;
-
-        std::shared_ptr<Pointer> tempForBackPtr = ptr->backPtr;
-        ptr->backPtr = ptr->parent->backPtr;
-        ptr->parent->backPtr = tempForBackPtr;
-
-        ptr->backPtr->element = ptr->parent;
-        ptr->parent->backPtr->element = ptr;
-    }
-    void decreaseKey(std::shared_ptr<Pointer> &pointer, int newKey) {
-        node* currentNode = pointer->element;
-        currentNode->data = newKey;
-        while(currentNode->parent && (currentNode->smallest || currentNode->data < currentNode->parent->data)) {
-            swapWithParent(currentNode);
-            currentNode = currentNode->parent;
+    void cut(node* x) {
+        x->next->prev = x->prev;
+        x->prev->next = x->next;
+        x->parent->degree--;
+        if(x->parent->child == x) {
+            if(x->next == x)
+                x->parent->child = nullptr;
+            else
+                x->parent->child = x->next;
         }
+        x->next = x->prev = x;
+        x->parent = nullptr;
+        union_lists(min, x);
+    }
+    void cascading_cut(node* x) {
+        while(x->mark == true) {
+            node* parent= x->parent;
+            cut(x);
+            x = parent;
+        }
+        x->mark = true;
+    }
+    void consolidate() {
+        if(size == 0)
+            return;
+        Vector<node*> nodes(max_degree, nullptr);
+        node* current = min;
+        while(current != nullptr) {
+            node* toTheNext = current->next;
+            if(current == current->next)
+                toTheNext = nullptr;
+            else {
+                current->next->prev = current->prev;
+                current->prev->next = current->next;
+            }
+            current->next = current->prev = current->parent = nullptr;
+            if(nodes[current->degree] == nullptr)
+                nodes[current->degree] = current;
+            else while(nodes[current->degree] != nullptr) {
+                node* second = nodes[current->degree];
+                if(current->data > second->data) {
+                    node* temp = current;
+                    current = second;
+                    second = temp;
+                }
+                if(current->child == nullptr) {
+                    current->child = second;
+                    second->next = second->prev = second;
+                } else {
+                    second->prev = current->child;
+                    second->next = current->child->next;
+                    second->prev->next = second;
+                    second->next->prev = second;
+                }
+                nodes[current->degree] = nullptr;
+                current->degree++;
+                second->parent = current;
+            }
+            nodes[current->degree] = current;
+            current = toTheNext;
+        }
+        min = nullptr;
+        for(int i = 0; i < max_degree; i++) {
+            if(nodes[i] != nullptr) {
+                if(min == nullptr) {
+                    min = nodes[i];
+                    min->next = min->prev = min;
+                } else {
+                    nodes[i]->next = min->next;
+                    nodes[i]->prev = min;
+                    nodes[i]->next->prev = nodes[i];
+                    nodes[i]->prev->next = nodes[i];
+                }
+                if(min->data > min->next->data && min != min->next)
+                    min = min->next;
+            }
+        }
+    }
+    void union_lists(node* first, node* second) {
+        node *l = first->prev, *r = second->next;
+        second->next = first;
+        first->prev = second;
+        l->next = r;
+        r->prev = l;
     }
 };

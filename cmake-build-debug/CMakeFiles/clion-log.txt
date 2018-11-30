@@ -1,4 +1,5 @@
-"C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Tsinin\Desktop\Programmes\FibHeap
+"C:\Program Files\JetBrains\CLion 2018.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap
+-- Could NOT find PythonInterp (missing: PYTHON_EXECUTABLE) 
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/Tsinin/Desktop/Programmes/FibHeap/cmake-build-debug
+-- Build files have been written to: C:/Users/Lion/CLionProjects/FibonacciHeap/FibonacciHeap/cmake-build-debug

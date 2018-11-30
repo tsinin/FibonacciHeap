@@ -33,19 +33,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2018.3\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe" -E remove -f
+RM = "C:\Program Files\JetBrains\CLion 2018.3\bin\cmake\win\bin\cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Tsinin\Desktop\Programmes\FibHeap
+CMAKE_SOURCE_DIR = C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Tsinin\Desktop\Programmes\FibHeap\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/FibHeap.dir/depend.make
@@ -57,31 +57,51 @@ include CMakeFiles/FibHeap.dir/progress.make
 include CMakeFiles/FibHeap.dir/flags.make
 
 CMakeFiles/FibHeap.dir/main.cpp.obj: CMakeFiles/FibHeap.dir/flags.make
+CMakeFiles/FibHeap.dir/main.cpp.obj: CMakeFiles/FibHeap.dir/includes_CXX.rsp
 CMakeFiles/FibHeap.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Tsinin\Desktop\Programmes\FibHeap\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/FibHeap.dir/main.cpp.obj"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FibHeap.dir\main.cpp.obj -c C:\Users\Tsinin\Desktop\Programmes\FibHeap\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/FibHeap.dir/main.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FibHeap.dir\main.cpp.obj -c C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\main.cpp
 
 CMakeFiles/FibHeap.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FibHeap.dir/main.cpp.i"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Tsinin\Desktop\Programmes\FibHeap\main.cpp > CMakeFiles\FibHeap.dir\main.cpp.i
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\main.cpp > CMakeFiles\FibHeap.dir\main.cpp.i
 
 CMakeFiles/FibHeap.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FibHeap.dir/main.cpp.s"
-	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Tsinin\Desktop\Programmes\FibHeap\main.cpp -o CMakeFiles\FibHeap.dir\main.cpp.s
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\main.cpp -o CMakeFiles\FibHeap.dir\main.cpp.s
+
+CMakeFiles/FibHeap.dir/Tests/test.cpp.obj: CMakeFiles/FibHeap.dir/flags.make
+CMakeFiles/FibHeap.dir/Tests/test.cpp.obj: CMakeFiles/FibHeap.dir/includes_CXX.rsp
+CMakeFiles/FibHeap.dir/Tests/test.cpp.obj: ../Tests/test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/FibHeap.dir/Tests/test.cpp.obj"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\FibHeap.dir\Tests\test.cpp.obj -c C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\Tests\test.cpp
+
+CMakeFiles/FibHeap.dir/Tests/test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FibHeap.dir/Tests/test.cpp.i"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\Tests\test.cpp > CMakeFiles\FibHeap.dir\Tests\test.cpp.i
+
+CMakeFiles/FibHeap.dir/Tests/test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FibHeap.dir/Tests/test.cpp.s"
+	C:\PROGRA~2\MINGW-~1\I686-8~1.0-P\mingw32\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\Tests\test.cpp -o CMakeFiles\FibHeap.dir\Tests\test.cpp.s
 
 # Object files for target FibHeap
 FibHeap_OBJECTS = \
-"CMakeFiles/FibHeap.dir/main.cpp.obj"
+"CMakeFiles/FibHeap.dir/main.cpp.obj" \
+"CMakeFiles/FibHeap.dir/Tests/test.cpp.obj"
 
 # External object files for target FibHeap
 FibHeap_EXTERNAL_OBJECTS =
 
 FibHeap.exe: CMakeFiles/FibHeap.dir/main.cpp.obj
+FibHeap.exe: CMakeFiles/FibHeap.dir/Tests/test.cpp.obj
 FibHeap.exe: CMakeFiles/FibHeap.dir/build.make
+FibHeap.exe: lib/libgtestd.a
+FibHeap.exe: lib/libgtest_maind.a
+FibHeap.exe: lib/libgtestd.a
 FibHeap.exe: CMakeFiles/FibHeap.dir/linklibs.rsp
 FibHeap.exe: CMakeFiles/FibHeap.dir/objects1.rsp
 FibHeap.exe: CMakeFiles/FibHeap.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Tsinin\Desktop\Programmes\FibHeap\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable FibHeap.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable FibHeap.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\FibHeap.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -94,6 +114,6 @@ CMakeFiles/FibHeap.dir/clean:
 .PHONY : CMakeFiles/FibHeap.dir/clean
 
 CMakeFiles/FibHeap.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Tsinin\Desktop\Programmes\FibHeap C:\Users\Tsinin\Desktop\Programmes\FibHeap C:\Users\Tsinin\Desktop\Programmes\FibHeap\cmake-build-debug C:\Users\Tsinin\Desktop\Programmes\FibHeap\cmake-build-debug C:\Users\Tsinin\Desktop\Programmes\FibHeap\cmake-build-debug\CMakeFiles\FibHeap.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\cmake-build-debug C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\cmake-build-debug C:\Users\Lion\CLionProjects\FibonacciHeap\FibonacciHeap\cmake-build-debug\CMakeFiles\FibHeap.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/FibHeap.dir/depend
 
